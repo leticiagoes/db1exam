@@ -1,0 +1,15 @@
+C:\Drive\DB1\Avaliação Técnica\Solution\DB1.AvaliacaoTecnica\DB1.AvaliacaoTecnica.Console\bin\Debug\DB1.AvaliacaoTecnica.Console.exe.config
+C:\Users\Hygor\Desktop\LG\DB1\2017_ Avaliação Técnica .NET\DB1.AvaliacaoTecnica\DB1.AvaliacaoTecnica\DB1.AvaliacaoTecnica.Console\bin\Debug\DB1.AvaliacaoTecnica.Console.exe.config
+C:\Users\Hygor\Desktop\LG\DB1\2017_ Avaliação Técnica .NET\DB1.AvaliacaoTecnica\DB1.AvaliacaoTecnica\DB1.AvaliacaoTecnica.Console\bin\Debug\DB1.AvaliacaoTecnica.Console.exe
+C:\Users\Hygor\Desktop\LG\DB1\2017_ Avaliação Técnica .NET\DB1.AvaliacaoTecnica\DB1.AvaliacaoTecnica\DB1.AvaliacaoTecnica.Console\bin\Debug\DB1.AvaliacaoTecnica.Console.pdb
+C:\Users\Hygor\Desktop\LG\DB1\2017_ Avaliação Técnica .NET\DB1.AvaliacaoTecnica\DB1.AvaliacaoTecnica\DB1.AvaliacaoTecnica.Console\obj\Debug\DB1.AvaliacaoTecnica.Console.csprojResolveAssemblyReference.cache
+C:\Users\Hygor\Desktop\LG\DB1\2017_ Avaliação Técnica .NET\DB1.AvaliacaoTecnica\DB1.AvaliacaoTecnica\DB1.AvaliacaoTecnica.Console\obj\Debug\DB1.AvaliacaoTecnica.Console.csproj.CoreCompileInputs.cache
+C:\Users\Hygor\Desktop\LG\DB1\2017_ Avaliação Técnica .NET\DB1.AvaliacaoTecnica\DB1.AvaliacaoTecnica\DB1.AvaliacaoTecnica.Console\obj\Debug\DB1.AvaliacaoTecnica.Console.exe
+C:\Users\Hygor\Desktop\LG\DB1\2017_ Avaliação Técnica .NET\DB1.AvaliacaoTecnica\DB1.AvaliacaoTecnica\DB1.AvaliacaoTecnica.Console\obj\Debug\DB1.AvaliacaoTecnica.Console.pdb
+C:\DB1.AvaliacaoTecnica\DB1.AvaliacaoTecnica.Console\bin\Debug\DB1.AvaliacaoTecnica.Console.exe.config
+C:\DB1.AvaliacaoTecnica\DB1.AvaliacaoTecnica.Console\bin\Debug\DB1.AvaliacaoTecnica.Console.exe
+C:\DB1.AvaliacaoTecnica\DB1.AvaliacaoTecnica.Console\bin\Debug\DB1.AvaliacaoTecnica.Console.pdb
+C:\DB1.AvaliacaoTecnica\DB1.AvaliacaoTecnica.Console\obj\Debug\DB1.AvaliacaoTecnica.Console.csprojResolveAssemblyReference.cache
+C:\DB1.AvaliacaoTecnica\DB1.AvaliacaoTecnica.Console\obj\Debug\DB1.AvaliacaoTecnica.Console.csproj.CoreCompileInputs.cache
+C:\DB1.AvaliacaoTecnica\DB1.AvaliacaoTecnica.Console\obj\Debug\DB1.AvaliacaoTecnica.Console.exe
+C:\DB1.AvaliacaoTecnica\DB1.AvaliacaoTecnica.Console\obj\Debug\DB1.AvaliacaoTecnica.Console.pdb

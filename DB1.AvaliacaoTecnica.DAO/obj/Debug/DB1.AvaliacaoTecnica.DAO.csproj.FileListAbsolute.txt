@@ -1,0 +1,6 @@
+C:\DB1.AvaliacaoTecnica\DB1.AvaliacaoTecnica.DAO\bin\Debug\DB1.AvaliacaoTecnica.DAO.dll
+C:\DB1.AvaliacaoTecnica\DB1.AvaliacaoTecnica.DAO\bin\Debug\DB1.AvaliacaoTecnica.DAO.pdb
+C:\DB1.AvaliacaoTecnica\DB1.AvaliacaoTecnica.DAO\obj\Debug\DB1.AvaliacaoTecnica.DAO.csprojResolveAssemblyReference.cache
+C:\DB1.AvaliacaoTecnica\DB1.AvaliacaoTecnica.DAO\obj\Debug\DB1.AvaliacaoTecnica.DAO.csproj.CoreCompileInputs.cache
+C:\DB1.AvaliacaoTecnica\DB1.AvaliacaoTecnica.DAO\obj\Debug\DB1.AvaliacaoTecnica.DAO.dll
+C:\DB1.AvaliacaoTecnica\DB1.AvaliacaoTecnica.DAO\obj\Debug\DB1.AvaliacaoTecnica.DAO.pdb
