@@ -12,7 +12,7 @@ using System.Web.Http.Cors;
 
 namespace DB1.AvaliacaoTecnica.API.Controllers
 {
-    public class CandidateController : ApiController
+    public class OpportunityTechnologyController : ApiController
     {
         [ResponseType(typeof(IEnumerable<Candidate>))]
         [EnableCors(origins: "http://localhost:8250", headers: "*", methods: "*")]

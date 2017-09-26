@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>DB1 Global Software - Avaliação Técnica</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
+    <script src="js/angular/angular.min.js"></script>
+    <script src="js/angular/angular-locale_pt-br.min.js"></script>
+    <script src="js/jquery/jquery-2.2.2.min.js"></script>
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <script src="app/app.technology.js"></script>
+    <link href="/images/favicon.png" rel="icon" type="image/x-icon">
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <link href="css/bootstrap-theme.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="javascript:void(0);">DB1 - Avaliação Técnica</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="usersGitHub.html">Usuários do gitHub</a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        RH Candidatos
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="technology.html">Cadastro de Tecnologias</a></li>
+                        <li><a href="opportunity.html">Cadastro de Vagas</a></li>
+                        <li><a href="candidate.html">Cadastro de Candidatos</a></li>
+                        <li><a href="opportunityTechnology.html">Atribuir Peso às Tecnologias</a></li>
+                        <li><a href="reportCandidate.html">Relatório de Candidatos</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container" ng-app="AppTechnology">
+        <div class="row">
+            <div class="col-md-12">
+                <div ng-controller="TechnologyController">
+                    <h3>Tecnologias</h3>
+                    <div class="loader" ng-show="showLoading"></div>
+                    <div class="{{classMessage}} alert-dismissable" ng-show="responseMessage">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <span class="{{iconMessage}}"></span> {{responseMessage}}
+                    </div>
+                    <br />
+                    <div id="list" ng-show="itemList">
+                        <h4>Listagem</h4>
+                        <button type="button" class="btn btn-primary pull-right" ng-click="addItem()">Adicionar nova tecnologia</button>
+                        <hr />
+                        <div class="alert alert-info alert-dismissable" ng-show="noResult">
+                            <span class="glyphicon glyphicon-exclamation-sign"></span> Nenhum resultado encontrado
+                        </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Descrição</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody ng-repeat="item in itemList">
+                                <tr>
+                                    <td>{{item.Description}}</td>
+                                    <td>
+                                        <a href="javascript:void(0);" ng-click="editItem(item)"><span class="glyphicon glyphicon-pencil"></span></a>
+                                        <a href="javascript:void(0);" ng-click="deleteItem(item.Id)"><span class="glyphicon glyphicon-remove"></span></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="editItem" ng-show="item">
+                        <h4>Cadastro/Edição</h4>
+                        <h4><a href="javascript:void(0);" ng-click="showItemList()" class="pull-right"><span class="glyphicon glyphicon-circle-arrow-left"></span> Voltar para a listagem</a></h4>
+                        <hr />
+                        <form>
+                            <div class="form-group">
+                                <label for="txtDescription">Descrição:</label>
+                                <input type="text" ng-model="item.Description" class="form-control" id="txtDescription">
+                            </div>
+                            <button type="button" class="btn btn-default" ng-click="saveItem(item)">Salvar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

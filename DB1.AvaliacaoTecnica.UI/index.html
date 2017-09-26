@@ -4,10 +4,9 @@
     <title>DB1 Global Software - Avaliação Técnica</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8" />
-    <script src="js/angular/angular.min.js"></script>
-    <script src="js/angular/angular-locale_pt-br.min.js"></script>
-    <script src="app/app.index.js"></script>
-    <link href="/resources/icons/favicon.ico" rel="icon" type="image/x-icon">
+    <script src="js/jquery/jquery-2.2.2.min.js"></script>
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <link href="/images/favicon.png" rel="icon" type="image/x-icon">
     <link href="css/bootstrap.css" rel="stylesheet" />
     <link href="css/bootstrap-theme.css" rel="stylesheet" />
 </head>
@@ -17,59 +16,30 @@
             <div class="navbar-header">
                 <a class="navbar-brand" href="javascript:void(0);">DB1 - Avaliação Técnica</a>
             </div>
+            <ul class="nav navbar-nav">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="usersGitHub.html">Usuários do gitHub</a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        RH Candidatos
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="technology.html">Cadastro de Tecnologias</a></li>
+                        <li><a href="opportunity.html">Cadastro de Vagas</a></li>
+                        <li><a href="candidate.html">Cadastro de Candidatos</a></li>
+                        <li><a href="opportunityTechnology.html">Atribuir Peso às Tecnologias</a></li>
+                        <li><a href="reportCandidate.html">Relatório de Candidatos</a></li>
+                    </ul>
+                </li>
+            </ul>
         </div>
     </nav>
 
-    <div class="container" ng-app="App">
+    <div class="container">
         <div class="row">
-            <div class="col-md-12">
-                <div ng-controller="Controller">
-                    <div id="user-list" ng-show="!userDetail">
-                        <h3>Usuários do GitHub</h3>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Login</th>
-                                    <th>Detalhes</th>
-                                </tr>
-                            </thead>
-                            <tbody ng-repeat="user in userList">
-                                <tr>
-                                    <td>{{user.id}}</td>
-                                    <td>{{user.login}}</td>
-                                    <td><a href="javascript:void(0);" ng-click="showUserDetails(user.login)"><span class="glyphicon glyphicon-search"></span></a></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div id="userDetails" ng-show="userDetail">
-                        <h3>Detalhes do usuário</h3>
-                        <h3><a href="javascript:void(0);" ng-click="showUserList()" class="pull-right"><span class="glyphicon glyphicon-circle-arrow-left"></span> Voltar para a lista de usuários</a></h3>
-                        <p><span class="glyphicon glyphicon-user"></span> ID: {{userDetail.id}}</p>
-                        <p><span class="glyphicon glyphicon-lock"></span> Login: {{userDetail.login}}</p>
-                        <p><span class="glyphicon glyphicon-link"></span> URL do perfil: <a href="{{userDetail.html_url}}" target="_blank">{{userDetail.html_url}}</a></p>
-                        <p><span class="glyphicon glyphicon-calendar"></span> Data de cadastro: {{userDetail.created_at | date:'medium'}}</p>
-                        <hr />
-                        <h3>Repositórios</h3>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Nome</th>
-                                    <th>URL</th>
-                                </tr>
-                            </thead>
-                            <tbody ng-repeat="rep in reposList">
-                                <tr>
-                                    <td>{{rep.id}}</td>
-                                    <td>{{rep.name}}</td>
-                                    <td><a href="{{rep.html_url}}" target="_blank">{{rep.html_url}}</a></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+            <div class="col-md-12" style="text-align:center">
+                <img src="images/db1.png" />
             </div>
         </div>
     </div>

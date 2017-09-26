@@ -2,12 +2,13 @@
 
 namespace DB1.AvaliacaoTecnica.API.Models
 {
-    public class Technology
+    public class CandidateTechnology
     {
         [Required]
         public long Id { get; set; }
         [Required]
-        [Display(Name = "Descrição")]
-        public string Description { get; set; }
+        public long IdCandidate { get; set; }
+        [Required]
+        public long IdTechnology { get; set; }
     }
 }

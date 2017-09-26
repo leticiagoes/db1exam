@@ -5,47 +5,148 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using DB1.AvaliacaoTecnica.API.Models;
+using DB1.AvaliacaoTecnica.API.Services;
+using System.Web.Http.Description;
+using System.Web.Mvc;
+using System.Web.Http.Cors;
 
 namespace DB1.AvaliacaoTecnica.API.Controllers
 {
-    [Route("api/[controller]")]
     public class TechnologyController : ApiController
     {
-        /*
-         * SELECT C.Name, SUM(OT.Weight) AS Score
-FROM (Candidate AS C
-INNER JOIN CandidateTechnology AS CT ON CT.IdCandidate = C.Id)
-INNER JOIN OpportunityTechnology AS OT ON OT.IdTechnology = CT.IdTechnology AND OT.IdOpportunity = C.IdOpportunity
-GROUP BY C.Name
-ORDER BY C.Name ASC
-*/
-        // GET api/values
-        public IEnumerable<string> Get()
+        [ResponseType(typeof(IEnumerable<Technology>))]
+        [EnableCors(origins: "http://localhost:8250", headers: "*", methods: "*")]
+        public HttpResponseMessage Get()
         {
-            DAO.Technology dao = new DAO.Technology("C:\\");
-            IEnumerable<Technology> list = Mapper.ToList<Technology>(dao.GetAll());
-            return new string[] { "value1", "value2" }; 
+            try
+            {
+                TechnologyRepository rep = new TechnologyRepository();
+                IEnumerable<Technology> list = Mapper.ToList<Technology>(rep.GetAll());
+                if (list != null && list.Count() > 0)
+                    return Request.CreateResponse(HttpStatusCode.OK, list);
+                else
+                    return Request.CreateResponse(HttpStatusCode.NoContent);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
         }
 
-        // GET api/values/5
-        public string Get(int id)
+        [ResponseType(typeof(Technology))]
+        [EnableCors(origins: "http://localhost:8250", headers: "*", methods: "*")]
+        public HttpResponseMessage Get([Bind(Include = "Id")]long Id)
         {
-            return "value";
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    TechnologyRepository rep = new TechnologyRepository();
+                    IEnumerable<Technology> list = Mapper.ToList<Technology>(rep.GetById(Id));
+                    if(list != null && list.Count() > 0)
+                        return Request.CreateResponse(HttpStatusCode.OK, list.FirstOrDefault());
+                    else
+                        return Request.CreateResponse(HttpStatusCode.NoContent);
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
         }
 
-        // POST api/values
-        public void Post([FromBody]string value)
+        [EnableCors(origins: "http://localhost:8250", headers: "*", methods: "*")]
+        public HttpResponseMessage Post([Bind(Exclude = "Id")][FromBody]Technology entity)
         {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    TechnologyRepository rep = new TechnologyRepository();
+                    Validate repValid = rep.ValidateInsert(entity);
+                    if (repValid.IsValid)
+                    {
+                        rep.Insert(entity);
+                        return Request.CreateResponse(HttpStatusCode.OK, "Operação efetuada com sucesso!");
+                    }
+                    else
+                    {
+                        return Request.CreateErrorResponse(HttpStatusCode.BadRequest, repValid.Message);
+                    }
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
         }
 
-        // PUT api/values/5
-        public void Put(int id, [FromBody]string value)
+        [EnableCors(origins: "http://localhost:8250", headers: "*", methods: "*")]
+        public HttpResponseMessage Put([FromBody]Technology entity)
         {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    TechnologyRepository rep = new TechnologyRepository();
+                    Validate repValid = rep.ValidateUpdate(entity);
+                    if (repValid.IsValid)
+                    {
+                        rep.Update(entity);
+                        return Request.CreateResponse(HttpStatusCode.OK, "Operação efetuada com sucesso!");
+                    }
+                    else
+                    {
+                        return Request.CreateErrorResponse(HttpStatusCode.BadRequest, repValid.Message);
+                    }
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
         }
 
-        // DELETE api/values/5
-        public void Delete(int id)
+        [EnableCors(origins: "http://localhost:8250", headers: "*", methods: "*")]
+        public HttpResponseMessage Delete(long Id)
         {
+            try
+            {
+                if (Id > 0)
+                {
+                    TechnologyRepository rep = new TechnologyRepository();
+                    Validate repValid = rep.ValidateDelete(Id);
+                    if (repValid.IsValid)
+                    {
+                        rep.Delete(Id);
+                        return Request.CreateResponse(HttpStatusCode.OK, "Operação efetuada com sucesso!");
+                    }
+                    else
+                    {
+                        return Request.CreateErrorResponse(HttpStatusCode.BadRequest, repValid.Message);
+                    }
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Id inválido!");
+                }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
         }
     }
 }
