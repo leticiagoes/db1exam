@@ -50,6 +50,7 @@ app.controller('TechnologyController', function ($scope, $http) {
 
     function newItem() {
         $scope.item = { 'Id': 0, 'Description': null };
+        $scope.noResult = false;
     }
 
     function getItemList() {

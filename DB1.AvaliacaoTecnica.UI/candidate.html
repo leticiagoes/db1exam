@@ -6,6 +6,7 @@
     <meta charset="utf-8" />
     <script src="js/angular/angular.min.js"></script>
     <script src="js/angular/angular-locale_pt-br.min.js"></script>
+    <script src="js/angular/checklist-model.js"></script>
     <script src="js/jquery/jquery-2.2.2.min.js"></script>
     <script src="js/bootstrap/bootstrap.min.js"></script>
     <script src="app/app.candidate.js"></script>
@@ -30,15 +31,16 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="technology.html">Cadastro de Tecnologias</a></li>
-                        <li><a href="Candidate.html">Cadastro de Vagas</a></li>
+                        <li><a href="opportunity.html">Cadastro de Vagas</a></li>
                         <li><a href="candidate.html">Cadastro de Candidatos</a></li>
-                        <li><a href="CandidateTechnology.html">Atribuir Peso às Tecnologias</a></li>
+                        <li><a href="opportunityTechnology.html">Atribuir Peso às Tecnologias</a></li>
                         <li><a href="reportCandidate.html">Relatório de Candidatos</a></li>
                     </ul>
                 </li>
             </ul>
         </div>
     </nav>
+
     <div class="container" ng-app="AppCandidate">
         <div class="row">
             <div class="col-md-12">
@@ -50,14 +52,14 @@
                         <span class="{{iconMessage}}"></span> {{responseMessage}}
                     </div>
                     <br />
-                    <div id="list" ng-show="itemList">
+                    <div id="list" ng-show="noResult || itemList">
                         <h4>Listagem</h4>
                         <button type="button" class="btn btn-primary pull-right" ng-click="addItem()">Adicionar novo candidato</button>
                         <hr />
                         <div class="alert alert-info alert-dismissable" ng-show="noResult">
                             <span class="glyphicon glyphicon-exclamation-sign"></span> Nenhum resultado encontrado
                         </div>
-                        <table class="table">
+                        <table class="table" ng-show="itemList">
                             <thead>
                                 <tr>
                                     <th>Nome</th>
@@ -94,7 +96,7 @@
                             <div class="form-group">
                                 <label for="sel1">Tecnologias:</label>
                                 <label class="form-control" ng-repeat="checkItem in checkboxList">
-                                    <input type="checkbox" checklist-model="checksSelected" checklist-value="checkItem.Id"> {{checkItem.Description}}
+                                    <input type="checkbox" checklist-model="getCheckItems()" checklist-value="checkItem.Id" ng-change="check(checkItem, checked)"> {{checkItem.Description}}
                                 </label>
                             </div>
                             <button type="button" class="btn btn-default" ng-click="saveItem(item)">Salvar</button>

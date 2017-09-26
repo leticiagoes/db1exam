@@ -14,14 +14,14 @@ namespace DB1.AvaliacaoTecnica.API.Controllers
 {
     public class OpportunityTechnologyController : ApiController
     {
-        [ResponseType(typeof(IEnumerable<Candidate>))]
+        [ResponseType(typeof(IEnumerable<OpportunityTechnologyDTO>))]
         [EnableCors(origins: "http://localhost:8250", headers: "*", methods: "*")]
         public HttpResponseMessage Get()
         {
             try
             {
-                CandidateRepository rep = new CandidateRepository();
-                IEnumerable<Candidate> list = Mapper.ToList<Candidate>(rep.GetAll());
+                OpportunityTechnologyRepository rep = new OpportunityTechnologyRepository();
+                IEnumerable<OpportunityTechnologyDTO> list = Mapper.ToList<OpportunityTechnologyDTO>(rep.GetAllWithDescription());
                 if (list != null && list.Count() > 0)
                     return Request.CreateResponse(HttpStatusCode.OK, list);
                 else
@@ -33,7 +33,7 @@ namespace DB1.AvaliacaoTecnica.API.Controllers
             }
         }
 
-        [ResponseType(typeof(Candidate))]
+        [ResponseType(typeof(OpportunityTechnology))]
         [EnableCors(origins: "http://localhost:8250", headers: "*", methods: "*")]
         public HttpResponseMessage Get([Bind(Include = "Id")]long Id)
         {
@@ -41,8 +41,8 @@ namespace DB1.AvaliacaoTecnica.API.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    CandidateRepository rep = new CandidateRepository();
-                    IEnumerable<Candidate> list = Mapper.ToList<Candidate>(rep.GetById(Id));
+                    OpportunityTechnologyRepository rep = new OpportunityTechnologyRepository();
+                    IEnumerable<OpportunityTechnology> list = Mapper.ToList<OpportunityTechnology>(rep.GetById(Id));
                     if (list != null && list.Count() > 0)
                         return Request.CreateResponse(HttpStatusCode.OK, list.FirstOrDefault());
                     else
@@ -60,13 +60,13 @@ namespace DB1.AvaliacaoTecnica.API.Controllers
         }
 
         [EnableCors(origins: "http://localhost:8250", headers: "*", methods: "*")]
-        public HttpResponseMessage Post([Bind(Exclude = "Id")][FromBody]Candidate entity)
+        public HttpResponseMessage Post([Bind(Exclude = "Id")][FromBody]OpportunityTechnology entity)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    CandidateRepository rep = new CandidateRepository();
+                    OpportunityTechnologyRepository rep = new OpportunityTechnologyRepository();
                     Validate repValid = rep.ValidateInsert(entity);
                     if (repValid.IsValid)
                     {
@@ -90,14 +90,14 @@ namespace DB1.AvaliacaoTecnica.API.Controllers
         }
 
         [EnableCors(origins: "http://localhost:8250", headers: "*", methods: "*")]
-        public HttpResponseMessage Put([FromBody]Candidate entity)
+        public HttpResponseMessage Put([FromBody]OpportunityTechnology entity)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    CandidateRepository rep = new CandidateRepository();
-                    Validate repValid = rep.ValidateUpdate(entity);
+                    OpportunityTechnologyRepository rep = new OpportunityTechnologyRepository();
+                    Validate repValid = rep.ValidateInsert(entity);
                     if (repValid.IsValid)
                     {
                         rep.Update(entity);
@@ -126,7 +126,7 @@ namespace DB1.AvaliacaoTecnica.API.Controllers
             {
                 if (Id > 0)
                 {
-                    CandidateRepository rep = new CandidateRepository();
+                    OpportunityTechnologyRepository rep = new OpportunityTechnologyRepository();
                     Validate repValid = rep.ValidateDelete(Id);
                     if (repValid.IsValid)
                     {

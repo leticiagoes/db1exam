@@ -70,8 +70,8 @@ namespace DB1.AvaliacaoTecnica.API.Controllers
                     Validate repValid = rep.ValidateInsert(entity);
                     if (repValid.IsValid)
                     {
-                        rep.Insert(entity);
-                        return Request.CreateResponse(HttpStatusCode.OK, "Operação efetuada com sucesso!");
+                        int Id = rep.Insert(entity);
+                        return Request.CreateResponse(HttpStatusCode.OK, new { Id = Id, Message = "Operação efetuada com sucesso!" });
                     }
                     else
                     {

@@ -36,6 +36,8 @@ app.controller('ReportCandidateController', function ($scope, $http) {
         $scope.itemList = response.data;
         if (response.status == 204) {
             $scope.noResult = true;
+        } else {
+            $scope.noResult = false;
         }
     }
 

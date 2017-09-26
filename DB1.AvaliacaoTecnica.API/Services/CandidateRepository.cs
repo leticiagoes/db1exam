@@ -52,10 +52,25 @@ namespace DB1.AvaliacaoTecnica.API.Services
             return ExecuteSelect(query);
         }
 
-        public void Insert(Candidate entity)
+        public int Insert(Candidate entity)
         {
             string query = "INSERT INTO " + TableName + " (Name, IdOpportunity) VALUES ('" + entity.Name + "', " + entity.IdOpportunity + ")";
-            ExecuteCommand(query);
+            string query2 = "SELECT @@identity";
+            int Id = 0;
+
+            using (OleDbConnection conn = connection)
+            {
+                using (OleDbCommand cmd = new OleDbCommand(query, conn))
+                {
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                    cmd.CommandText = query2;
+                    Id = (int)cmd.ExecuteScalar();
+                }
+            }
+
+            connection.Close();
+            return Id;
         }
 
         public void Update(Candidate entity)

@@ -29,6 +29,12 @@ namespace DB1.AvaliacaoTecnica.API.Services
             return ExecuteSelect(query);
         }
 
+        public DataTable GetAllByCandidate(long Id)
+        {
+            string query = "SELECT IdTechnology FROM " + TableName + " WHERE IdCandidate = " + Id;
+            return ExecuteSelect(query);
+        }
+
         public void Insert(CandidateTechnology entity)
         {
             string query = "INSERT INTO " + TableName + " (IdCandidate, IdTechnology) VALUES (" + entity.IdCandidate + ", " + entity.IdTechnology + ")";
@@ -44,6 +50,18 @@ namespace DB1.AvaliacaoTecnica.API.Services
         public void Delete(long Id)
         {
             string query = "DELETE FROM " + TableName + " WHERE Id = " + Id;
+            ExecuteCommand(query);
+        }
+
+        public void DeleteAllByCandidate(long Id)
+        {
+            string query = "DELETE FROM " + TableName + " WHERE IdCandidate = " + Id;
+            ExecuteCommand(query);
+        }
+
+        public void DeleteByCandidate(CandidateTechnology entity)
+        {
+            string query = "DELETE FROM " + TableName + " WHERE IdCandidate = " + entity.IdCandidate + " AND IdTechnology = " + entity.IdTechnology;
             ExecuteCommand(query);
         }
 

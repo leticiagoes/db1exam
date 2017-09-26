@@ -39,6 +39,7 @@
             </ul>
         </div>
     </nav>
+
     <div class="container" ng-app="AppReportCandidate">
         <div class="row">
             <div class="col-md-12">
@@ -50,12 +51,12 @@
                         <span class="{{iconMessage}}"></span> {{responseMessage}}
                     </div>
                     <br />
-                    <div id="list" ng-show="itemList">
+                    <div id="list" ng-show="noResult || itemList">
                         <hr />
                         <div class="alert alert-info alert-dismissable" ng-show="noResult">
                             <span class="glyphicon glyphicon-exclamation-sign"></span> Nenhum resultado encontrado
                         </div>
-                        <table class="table">
+                        <table class="table" ng-show="itemList">
                             <thead>
                                 <tr>
                                     <th>Nome do Candidato</th>

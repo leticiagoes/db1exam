@@ -16,4 +16,14 @@ namespace DB1.AvaliacaoTecnica.API.Models
         [Display(Name = "Tecnologia")]
         public long IdTechnology { get; set; }
     }
+
+    public class OpportunityTechnologyDTO
+    {
+        public long Id { get; set; }
+        public int Weight { get; set; }
+        public long IdOpportunity { get; set; }
+        public long IdTechnology { get; set; }
+        public string DescriptionOpportunity { get; set; }
+        public string DescriptionTechnology { get; set; }
+    }
 }

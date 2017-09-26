@@ -1,8 +1,9 @@
-﻿var app = angular.module('AppCandidate', []);
+﻿var app = angular.module('AppCandidate', ["checklist-model"]);
 app.controller('CandidateController', function ($scope, $http) {
     var urlAPI = "http://localhost:64762/api/candidate";
     var urlAPI_Opportunity = "http://localhost:64762/api/opportunity";
     var urlAPI_Technology = "http://localhost:64762/api/technology";
+    var urlAPI_CandidateTechnology = "http://localhost:64762/api/candidatetechnology";
     var successClass = 'alert alert-success';
     var errorClass = 'alert alert-danger';
     var iconSuccessClass = 'glyphicon glyphicon-ok';
@@ -16,9 +17,13 @@ app.controller('CandidateController', function ($scope, $http) {
     $scope.item = null;
     $scope.itemList = null;
     $scope.options = null;
-    $scope.optionSelected;
+    $scope.optionSelected = {};
     $scope.checkboxList = null;
-    $scope.checksSelected = null;
+    $scope.arrayObj = [];
+    $scope.arrayObjDel = [];
+    $scope.user = {
+        checks: []
+    };
     getItemList();
 
     $scope.showItemList = function () {
@@ -32,8 +37,6 @@ app.controller('CandidateController', function ($scope, $http) {
     $scope.addItem = function () {
         $scope.itemList = null;
         newItem();
-        getOpportunityList();
-        getTechnologyList();
     }
 
     $scope.saveItem = function (item) {
@@ -49,6 +52,8 @@ app.controller('CandidateController', function ($scope, $http) {
 
     $scope.editItem = function (item) {
         $scope.itemList = null;
+        getOpportunityList();
+        getTechnologyList();
         getItemDetails(item);
     }
 
@@ -60,7 +65,16 @@ app.controller('CandidateController', function ($scope, $http) {
 
     function newItem() {
         $scope.item = { 'Id': 0, 'Name': null };
-        $scope.optionSelected;
+        $scope.noResult = false;
+        $scope.itemList = null;
+        $scope.options = null;
+        $scope.optionSelected = {};
+        $scope.checkboxList = null;
+        $scope.user = {
+            checks: []
+        };
+        getOpportunityList();
+        getTechnologyList();
     }
 
     function getItemList() {
@@ -107,13 +121,35 @@ app.controller('CandidateController', function ($scope, $http) {
         $http.get(urlAPI + "/" + item.Id).then(function onSuccess(response) {
             $scope.item = response.data;
             $scope.optionSelected.Id = response.data.IdOpportunity;
+            getCandidateTechnologies(item.Id);
         }, function onError(response) {
             checkResponse(response);
         });
     }
 
+    var selectedItems = function () {
+        return $scope.checkboxList.filter(function (item) {
+            return item.selected;
+        });
+    };
+
+    $scope.check = function (value, checked) {
+        if (!checked) {
+            $scope.arrayObjDel.push(value);
+        }
+        if (checked) {
+            $scope.arrayObj.push(value);
+        }
+    };
+
+    $scope.getCheckItems = function () {
+        return $scope.user.checks;
+    };
+
     function saveItem(item) {
         $http.post(urlAPI, item).then(function onSuccess(response) {
+            $scope.item.Id = response.data.Id;
+            saveTechnology($scope.item.Id);
             checkResponse(response);
         }, function onError(response) {
             checkResponse(response);
@@ -122,6 +158,7 @@ app.controller('CandidateController', function ($scope, $http) {
 
     function updateItem(item) {
         $http.put(urlAPI + "/" + item.Id, item).then(function onSuccess(response) {
+            saveTechnology(item.Id);
             checkResponse(response);
         }, function onError(response) {
             checkResponse(response);
@@ -136,10 +173,60 @@ app.controller('CandidateController', function ($scope, $http) {
         });
     }
 
+    function saveTechnology(Id) {
+        var arraySave = [];
+        console.log($scope.arrayObj);
+        angular.forEach($scope.arrayObj, function (check) {
+            var obj = {
+                'Id': 0,
+                'IdCandidate': Id,
+                'IdTechnology': check.Id,
+                'Delete': false
+            }
+            arraySave.push(obj);
+        });
+
+        var arrayDelete = [];
+
+        angular.forEach($scope.arrayObjDel, function (check) {
+            var obj = {
+                'Id': 0,
+                'IdCandidate': Id,
+                'IdTechnology': check.Id,
+                'Delete': true
+            }
+            arrayDelete.push(obj);
+        });
+
+        if (Id > 0) {
+            $http.post(urlAPI_CandidateTechnology, arrayDelete).then(function onSuccess(response) {
+                checkResponse(response);
+                $scope.arrayObjDel = [];
+            }, function onError(response) {
+                checkResponse(response);
+            });
+        }
+
+        $http.post(urlAPI_CandidateTechnology, arraySave).then(function onSuccess(response) {
+            checkResponse(response);
+            $scope.arrayObj = [];
+        }, function onError(response) {
+            checkResponse(response);
+            });        
+    }
+
+    function getCandidateTechnologies(Id) {
+        $http.get(urlAPI_CandidateTechnology + "/" + Id).then(function onSuccess(response) {
+            $scope.user.checks = response.data;
+        }, function onError(response) {
+            checkResponse(response);
+        });
+    }
+
     function checkResponse(response) {
         if (response.status == 200) {
             $scope.classMessage = successClass;
-            $scope.responseMessage = response.data;
+            $scope.responseMessage = response.data.Message ? response.data.Message : response.data;
             $scope.iconMessage = iconSuccessClass;
         } else {
             if (response.status == 400)

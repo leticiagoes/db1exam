@@ -30,15 +30,16 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="technology.html">Cadastro de Tecnologias</a></li>
-                        <li><a href="OpportunityTechnology.html">Cadastro de Vagas</a></li>
-                        <li><a href="OpportunityTechnology.html">Cadastro de Candidatos</a></li>
-                        <li><a href="OpportunityTechnologyTechnology.html">Atribuir Peso às Tecnologias</a></li>
-                        <li><a href="reportOpportunityTechnology.html">Relatório de Candidatos</a></li>
+                        <li><a href="opportunity.html">Cadastro de Vagas</a></li>
+                        <li><a href="candidate.html">Cadastro de Candidatos</a></li>
+                        <li><a href="opportunityTechnology.html">Atribuir Peso às Tecnologias</a></li>
+                        <li><a href="reportCandidate.html">Relatório de Candidatos</a></li>
                     </ul>
                 </li>
             </ul>
         </div>
     </nav>
+
     <div class="container" ng-app="AppOpportunityTechnology">
         <div class="row">
             <div class="col-md-12">
@@ -50,14 +51,14 @@
                         <span class="{{iconMessage}}"></span> {{responseMessage}}
                     </div>
                     <br />
-                    <div id="list" ng-show="itemList">
+                    <div id="list" ng-show="noResult || itemList">
                         <h4>Listagem</h4>
                         <button type="button" class="btn btn-primary pull-right" ng-click="addItem()">Atribuir Peso às Tecnologias</button>
                         <hr />
                         <div class="alert alert-info alert-dismissable" ng-show="noResult">
                             <span class="glyphicon glyphicon-exclamation-sign"></span> Nenhum resultado encontrado
                         </div>
-                        <table class="table">
+                        <table class="table" ng-show="itemList">
                             <thead>
                                 <tr>
                                     <th>Tecnologia</th>
@@ -68,8 +69,8 @@
                             </thead>
                             <tbody ng-repeat="item in itemList">
                                 <tr>
-                                    <td>{{item.Technology}}</td>
-                                    <td>{{item.Opportunity}}</td>
+                                    <td>{{item.DescriptionTechnology}}</td>
+                                    <td>{{item.DescriptionOpportunity}}</td>
                                     <td>{{item.Weight}}</td>
                                     <td>
                                         <a href="javascript:void(0);" ng-click="editItem(item)"><span class="glyphicon glyphicon-pencil"></span></a>

@@ -23,6 +23,18 @@ namespace DB1.AvaliacaoTecnica.API.Services
             return ExecuteSelect(query);
         }
 
+        public DataTable GetAllWithDescription()
+        {
+            string query = @"SELECT OT.Id, OT.Weight, OT.IdOpportunity, OT.IdTechnology, 
+                                O.Description AS DescriptionOpportunity,
+                                T.Description AS DescriptionTechnology
+                                FROM (" + TableName + @" AS OT
+                                INNER JOIN Opportunity AS O ON O.Id = OT.IdOpportunity)
+                                INNER JOIN Technology T ON T.Id = OT.IdTechnology
+                                ORDER BY T.Description ASC, O.Description ASC";
+            return ExecuteSelect(query);
+        }
+
         public DataTable GetById(long Id)
         {
             string query = "SELECT Id, Weight, IdOpportunity, IdTechnology FROM " + TableName + " WHERE Id = " + Id;
@@ -31,7 +43,9 @@ namespace DB1.AvaliacaoTecnica.API.Services
 
         public DataTable GetExist(OpportunityTechnology entity)
         {
-            string query = "SELECT Id, Weight, IdOpportunity, IdTechnology FROM " + TableName + " WHERE Id = " + entity.Id + " AND IdOpportunity = " + entity.IdOpportunity + " AND IdTechnology = " + entity.IdTechnology;
+            string query = "SELECT Id, Weight, IdOpportunity, IdTechnology FROM " + TableName + " WHERE IdOpportunity = " + entity.IdOpportunity + " AND IdTechnology = " + entity.IdTechnology;
+            if (entity.Id > 0)
+                query = "SELECT Id, Weight, IdOpportunity, IdTechnology FROM " + TableName + " WHERE Id <> " + entity.Id + " AND IdOpportunity = " + entity.IdOpportunity + " AND IdTechnology = " + entity.IdTechnology;
             return ExecuteSelect(query);
         }
 

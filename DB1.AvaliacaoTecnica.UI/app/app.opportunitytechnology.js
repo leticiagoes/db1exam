@@ -16,9 +16,9 @@ app.controller('OpportunityTechnologyController', function ($scope, $http) {
     $scope.item = null;
     $scope.itemList = null;
     $scope.options = null;
-    $scope.optionSelected;
+    $scope.optionSelected = {};
     $scope.options2 = null;
-    $scope.option2Selected = null;
+    $scope.option2Selected = {};
     getItemList();
 
     $scope.showItemList = function () {
@@ -32,11 +32,12 @@ app.controller('OpportunityTechnologyController', function ($scope, $http) {
     $scope.addItem = function () {
         $scope.itemList = null;
         newItem();
-        getOpportunityList();
-        getTechnologyList();
     }
 
     $scope.saveItem = function (item) {
+
+        item.IdOpportunity = $scope.optionSelected.Id;
+        item.IdTechnology = $scope.option2Selected.Id;
         if (item.Id > 0)
             updateItem(item);
         else
@@ -46,6 +47,8 @@ app.controller('OpportunityTechnologyController', function ($scope, $http) {
     }
 
     $scope.editItem = function (item) {
+        getOpportunityList();
+        getTechnologyList();
         $scope.itemList = null;
         getItemDetails(item);
     }
@@ -57,8 +60,14 @@ app.controller('OpportunityTechnologyController', function ($scope, $http) {
     }
 
     function newItem() {
-        $scope.item = { 'Id': 0, 'Name': null };
-        $scope.optionSelected;
+        $scope.item = { 'Id': 0, 'Weight': null };
+        $scope.noResult = false;
+        $scope.options = null;
+        $scope.optionSelected = {};
+        $scope.options2 = null;
+        $scope.option2Selected = {};
+        getOpportunityList();
+        getTechnologyList();
     }
 
     function getItemList() {
@@ -104,6 +113,8 @@ app.controller('OpportunityTechnologyController', function ($scope, $http) {
     function getItemDetails(item) {
         $http.get(urlAPI + "/" + item.Id).then(function onSuccess(response) {
             $scope.item = response.data;
+            $scope.optionSelected.Id = response.data.IdOpportunity;
+            $scope.option2Selected.Id = response.data.IdTechnology;
         }, function onError(response) {
             checkResponse(response);
         });
